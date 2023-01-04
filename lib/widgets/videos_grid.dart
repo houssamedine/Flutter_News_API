@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/screen/details_page.dart';
 
 import '../models/video.dart';
 
@@ -16,9 +17,17 @@ class VideosGrid extends StatelessWidget {
       crossAxisCount: 2,
       children: [
         for (var video in videos)
-          _VideoTile(
-            imageUrl: video.thumbnail,
-            title: video.name,
+          GestureDetector(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailsPage(
+                          video: video,
+                        ))),
+            child: _VideoTile(
+              imageUrl: video.thumbnail,
+              title: video.name,
+            ),
           )
       ],
     );
@@ -39,13 +48,16 @@ class _VideoTile extends StatelessWidget {
       padding: EdgeInsets.all(10.0),
       child: Stack(children: [
         //----------Image----------
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: ClipRRect(
-            // Pour avoir des rebords arrondis dans le container
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(imageUrl, fit: BoxFit.cover),
+        Hero(
+          tag: imageUrl,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: ClipRRect(
+              // Pour avoir des rebords arrondis dans le container
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.network(imageUrl, fit: BoxFit.cover),
+            ),
           ),
         ),
         //----------Titre----------
