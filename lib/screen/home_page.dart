@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: [
           PopupMenuButton(
+            onSelected: _onChangeFilter,
             icon: Icon(Icons.sort),
             offset: Offset(0, 100),
             itemBuilder: (context) => [
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         color: backgroundColor,
         child: FutureBuilder(
-            future: getVideoFromApi(),
+            future: getVideoFromApi(filter: _selectedFilter),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting)
                 return Center(child: CircularProgressIndicator());
@@ -47,5 +48,13 @@ class _HomePageState extends State<HomePage> {
             }),
       ),
     );
+  }
+
+  void _onChangeFilter(VideoSort choice) {
+    if (choice != _selectedFilter) {
+      setState(() {
+        _selectedFilter = choice;
+      });
+    }
   }
 }

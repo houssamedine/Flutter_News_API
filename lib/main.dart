@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/screen/home_page.dart';
 
 void main() {
-  runApp(OrangeValleyApp());
+  runApp(
+    OrangeValleyApp(),
+  );
 }
 
 class OrangeValleyApp extends StatelessWidget {
