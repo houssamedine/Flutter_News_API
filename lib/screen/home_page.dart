@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/services/video_service.dart';
 import 'package:my_first_app/utils/constants.dart';
+import 'package:my_first_app/utils/helper.dart';
 import 'package:my_first_app/widgets/videos_grid.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var _selectedFilter = VideoSort.id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +20,18 @@ class HomePage extends StatelessWidget {
         title: const Text('Orange Valley CAA'),
         backgroundColor: Colors.black,
         centerTitle: true,
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.sort),
+            offset: Offset(0, 100),
+            itemBuilder: (context) => [
+              PopupMenuItem(value: VideoSort.id, child: Text('Par défaut')),
+              PopupMenuItem(value: VideoSort.name, child: Text('Par nom')),
+              PopupMenuItem(
+                  value: VideoSort.duration, child: Text('Par durée')),
+            ],
+          ),
+        ],
       ),
       body: Container(
         color: backgroundColor,
